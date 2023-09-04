@@ -1,0 +1,55 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: goods
+  namespace: default
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: goods
+  template:
+    metadata:
+      labels:
+        app: goods
+    spec:
+      containers:
+        - name: goods
+          image: keshox/goods:44
+          ports:
+            - containerPort: 80
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: default
+  name: goods
+spec:
+  selector:
+    app: goods
+  ports:
+    - protocol: TCP
+      port: 80
+      targetPort: 80
+
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: goods
+  namespace: default
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: codovstvo-test.ru
+      http:
+        paths:
+          - backend:
+              service:
+                name: goods
+                port:
+                  number: 80
+            path: /goods
+            pathType: Prefix

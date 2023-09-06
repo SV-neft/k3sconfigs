@@ -2,7 +2,7 @@ apiVersion: apps/v1
 kind: Deployment
 metadata:
   name: content
-  namespace: default
+  namespace: sv-neft
 spec:
   replicas: 1
   selector:
@@ -22,7 +22,7 @@ spec:
 apiVersion: v1
 kind: Service
 metadata:
-  namespace: default
+  namespace: sv-neft
   name: content
 spec:
   selector:
@@ -36,7 +36,7 @@ apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
   name: content
-  namespace: default
+  namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
 spec:

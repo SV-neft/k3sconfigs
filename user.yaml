@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: user
-          image: keshox/user:6
+          image: keshox/user:7
           ports:
             - containerPort: 80
 ---

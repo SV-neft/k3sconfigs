@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: keshox/gateway:39
+          image: svneft/gateway:4
           ports:
             - containerPort: 80
 ---

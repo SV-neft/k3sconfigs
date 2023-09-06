@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: content
-          image: keshox/content:7
+          image: svneft/content:2
           ports:
             - containerPort: 80
 ---

@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: content
-          image: keshox/content:7
+          image: 85456789/content:2.0.2
           ports:
             - containerPort: 80
 ---

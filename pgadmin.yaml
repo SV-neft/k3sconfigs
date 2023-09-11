@@ -13,6 +13,8 @@ spec:
       labels:
         app: pgadmin
     spec:
+      nodeSelector:
+        dedicated: worker
       containers:
         - name: pgadmin4
           image: dpage/pgadmin4

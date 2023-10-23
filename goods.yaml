@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: goods
-          image: keshox/goods:44
+          image: svneft/dozasync:1
           ports:
             - containerPort: 80
 ---

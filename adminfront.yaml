@@ -1,0 +1,94 @@
+apiVersion: apps/v1
+kind: Deployment
+metadata:
+  name: admin-front
+  namespace: sv-neft
+spec:
+  replicas: 1
+  selector:
+    matchLabels:
+      app: admin-front
+  template:
+    metadata:
+      labels:
+        app: admin-front
+    spec:
+      containers:
+        - name: admin-front
+          image: svneft/adminka:4
+          ports:
+            - containerPort: 8888
+---
+apiVersion: v1
+kind: Service
+metadata:
+  namespace: sv-neft
+  name: admin-front
+spec:
+  selector:
+    app: admin-front
+  ports:
+    - protocol: TCP
+      port: 8888
+      targetPort: 8888
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: admin-front
+  namespace: sv-neft
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+    cert-manager.io/issuer: "letsencrypt-global-war"
+spec:
+  ingressClassName: nginx
+  tls:
+    - hosts:
+        - codovstvo-test.ru
+      secretName: sv-neft
+  rules:
+    - host: codovstvo-test.ru
+      http:
+        paths:
+          - backend:
+              service:
+                name: admin-front
+                port:
+                  number: 8888
+            path: /admin-front(/|$)(.*)
+            pathType: Prefix
+# spec:
+#   ingressClassName: nginx-example
+#   rules:
+#   - http:
+#       paths:
+#       - path: /testpath
+#         pathType: Prefix
+#         backend:
+#           service:
+#             name: test
+#             port:
+#               number: 80
+
+
+# apiVersion: extensions/v1beta1
+# kind: Ingress
+# metadata:
+#   name: my-ingress-nginx
+#   annotations:
+#     kubernetes.io/ingress.class: "nginx"
+#     nginx.ingress.kubernetes.io/add-base-url: "true"
+#     nginx.ingress.kubernetes.io/rewrite-target: /
+# spec:
+#   rules:
+#   - host: some.kind.of.hostname.co
+#     http: &rules
+#       paths:
+#       - path: /path/to
+#         backend:
+#           serviceName: some-website-serving-static
+#           servicePort: 80
+#       - path: /
+#         backend:
+#           serviceName: another-service
+#           servicePort: 80

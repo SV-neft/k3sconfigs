@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: admin-front
-          image: svneft/adminka:4
+          image: svneft/adminka:18
           ports:
             - containerPort: 8888
 ---
@@ -39,15 +39,15 @@ metadata:
   namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    cert-manager.io/issuer: "letsencrypt-global-war"
+    cert-manager.io/issuer: "letsencrypt-sv-neft"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - codovstvo-test.ru
-      secretName: sv-neft
+        - app.sv-neft.ru
+      secretName: sv-neft-vs
   rules:
-    - host: codovstvo-test.ru
+    - host: app.sv-neft.ru
       http:
         paths:
           - backend:
@@ -57,38 +57,3 @@ spec:
                   number: 8888
             path: /admin-front(/|$)(.*)
             pathType: Prefix
-# spec:
-#   ingressClassName: nginx-example
-#   rules:
-#   - http:
-#       paths:
-#       - path: /testpath
-#         pathType: Prefix
-#         backend:
-#           service:
-#             name: test
-#             port:
-#               number: 80
-
-
-# apiVersion: extensions/v1beta1
-# kind: Ingress
-# metadata:
-#   name: my-ingress-nginx
-#   annotations:
-#     kubernetes.io/ingress.class: "nginx"
-#     nginx.ingress.kubernetes.io/add-base-url: "true"
-#     nginx.ingress.kubernetes.io/rewrite-target: /
-# spec:
-#   rules:
-#   - host: some.kind.of.hostname.co
-#     http: &rules
-#       paths:
-#       - path: /path/to
-#         backend:
-#           serviceName: some-website-serving-static
-#           servicePort: 80
-#       - path: /
-#         backend:
-#           serviceName: another-service
-#           servicePort: 80

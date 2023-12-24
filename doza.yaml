@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: doza-api
-          image: svneft/doza:19
+          image: svneft/doza:34
           ports:
             - containerPort: 3000
 
@@ -40,15 +40,15 @@ metadata:
   namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    cert-manager.io/issuer: "letsencrypt-global-war"
+    cert-manager.io/issuer: "letsencrypt-sv-neft"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - codovstvo-test.ru
-      secretName: doza
+        - app.sv-neft.ru
+      secretName: sv-neft-vs
   rules:
-    - host: codovstvo-test.ru
+    - host: app.sv-neft.ru
       http:
         paths:
           - backend:

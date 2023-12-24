@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: svneft/gateway-app:23
+          image: svneft/gateway-app:72
           ports:
             - containerPort: 80
 ---
@@ -39,15 +39,15 @@ metadata:
   namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    cert-manager.io/issuer: "letsencrypt-global-war"
+    cert-manager.io/issuer: "letsencrypt-sv-neft"
 spec:
   ingressClassName: nginx
   tls:
     - hosts:
-        - codovstvo-test.ru
-      secretName: sv-neft
+        - app.sv-neft.ru
+      secretName: sv-neft-vs
   rules:
-    - host: codovstvo-test.ru
+    - host: app.sv-neft.ru
       http:
         paths:
           - backend:

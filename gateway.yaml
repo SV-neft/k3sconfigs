@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: svneft/gateway-app:72
+          image: svneft/gateway-app:103
           ports:
             - containerPort: 80
 ---

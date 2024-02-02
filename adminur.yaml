@@ -1,45 +1,45 @@
 apiVersion: apps/v1
 kind: Deployment
 metadata:
-  name: admin-panel
+  name: adminur
   namespace: sv-neft
 spec:
   replicas: 1
   selector:
     matchLabels:
-      app: admin-panel
+      app: adminur
   template:
     metadata:
       labels:
-        app: admin-panel
+        app: adminur
     spec:
       containers:
-        - name: admin-panel
-          image: svneft/gateway-admin:25
+        - name: adminur
+          image: svneft/adminur:2
           ports:
-            - containerPort: 8001
+            - containerPort: 8888
 ---
 apiVersion: v1
 kind: Service
 metadata:
   namespace: sv-neft
-  name: admin-panel
+  name: adminur
 spec:
   selector:
-    app: admin-panel
+    app: adminur
   ports:
     - protocol: TCP
-      port: 8001
-      targetPort: 8001
+      port: 8888
+      targetPort: 8888
 ---
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: admin-panel
+  name: adminur
   namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
-    cert-manager.io/issuer: "letsencrypt-global-war"
+    cert-manager.io/issuer: "letsencrypt-sv-neft"
 spec:
   ingressClassName: nginx
   tls:
@@ -52,8 +52,8 @@ spec:
         paths:
           - backend:
               service:
-                name: admin-panel
+                name: adminur
                 port:
-                  number: 8001
-            path: /admin-panel(/|$)(.*)
+                  number: 8888
+            path: /adminur(/|$)(.*)
             pathType: Prefix

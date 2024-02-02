@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: doza-api
-          image: svneft/doza:34
+          image: svneft/doza:43
           ports:
             - containerPort: 3000
 
@@ -36,7 +36,7 @@ spec:
 apiVersion: networking.k8s.io/v1
 kind: Ingress
 metadata:
-  name: doza
+  name: dozatls
   namespace: sv-neft
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
@@ -49,6 +49,27 @@ spec:
       secretName: sv-neft-vs
   rules:
     - host: app.sv-neft.ru
+      http:
+        paths:
+          - backend:
+              service:
+                name: doza-api
+                port:
+                  number: 80
+            path: /doza(/|$)(.*)
+            pathType: Prefix
+---
+apiVersion: networking.k8s.io/v1
+kind: Ingress
+metadata:
+  name: doza
+  namespace: sv-neft
+  annotations:
+    nginx.ingress.kubernetes.io/rewrite-target: /$2
+spec:
+  ingressClassName: nginx
+  rules:
+    - host: doza-app.sv-neft.ru
       http:
         paths:
           - backend:

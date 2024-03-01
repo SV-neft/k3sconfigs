@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: gateway
-          image: svneft/gateway-app:103
+          image: svneft/gateway-app:121
           ports:
             - containerPort: 80
 ---
@@ -40,6 +40,7 @@ metadata:
   annotations:
     nginx.ingress.kubernetes.io/rewrite-target: /$2
     cert-manager.io/issuer: "letsencrypt-sv-neft"
+    nginx.ingress.kubernetes.io/proxy-body-size: 10m
 spec:
   ingressClassName: nginx
   tls:

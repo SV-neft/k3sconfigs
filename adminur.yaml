@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: adminur
-          image: svneft/adminur:2
+          image: svneft/adminur:6
           ports:
             - containerPort: 8888
 ---

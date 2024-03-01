@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: doza-api
-          image: svneft/doza:43
+          image: svneft/doza:46
           ports:
             - containerPort: 3000
 

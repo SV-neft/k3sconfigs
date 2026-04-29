@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: admin-front
-          image: svneft/adminka:37
+          image: svneft/adminka:131
           ports:
             - containerPort: 8888
 ---

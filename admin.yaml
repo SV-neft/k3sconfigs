@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: admin-panel
-          image: svneft/gateway-admin:32
+          image: svneft/gateway-admin:130
           ports:
             - containerPort: 8001
 ---

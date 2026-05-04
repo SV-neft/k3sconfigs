@@ -15,7 +15,7 @@ spec:
     spec:
       containers:
         - name: core
-          image: svneft/core:593
+          image: svneft/core:596
           # ports:
           #   - containerPort: 3000
 ---
